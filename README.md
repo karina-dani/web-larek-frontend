@@ -159,90 +159,90 @@ Contacts - реализует интерфейс IOrderForm. Выводит на
 
 ## Ключевые типы данных
 
-//данные страницы для отрисовки
-interface IPage {
-    counter: number; //счетчик товаров в корзине
-    catalog: HTMLElement[]; //каталог товаров, массив HTML-элементов
-    locked: boolean; //заблокирована ли прокрутка на странице, true или false 
+//данные страницы для отрисовки  
+interface IPage {  
+    counter: number; //счетчик товаров в корзине  
+    catalog: HTMLElement[]; //каталог товаров, массив HTML-элементов  
+    locked: boolean; //заблокирована ли прокрутка на странице, true или false  
 }
 
-//данные карточки для отрисовки
-interface ICard<T> {
-    id: string; //id продукта; 
-    category?: string; //категория продукта
-    description?: string | string[]; //описание товара
-    image?: string; //изображение товара
-    price: number | string; //цена товара
-    title: string; //название товара
-    index?: number; //индекс товара (для отображения карточки в корзине)
-    button: string[]; //кнопка товара - принимает массив данных id, среди которых находит или не находит товар в корзине
+//данные карточки для отрисовки  
+interface ICard<T> {  
+    id: string; //id продукта;  
+    category?: string; //категория продукта  
+    description?: string | string[]; //описание товара  
+    image?: string; //изображение товара  
+    price: number | string; //цена товара  
+    title: string; //название товара  
+    index?: number; //индекс товара (для отображения карточки в корзине)  
+    button: string[]; //кнопка товара - принимает массив данных id, среди которых находит или не находит товар в корзине  
 }    
 
-//данные корзины для отрисовки
-interface IBasketView {
-    items: HTMLElement[]; //массив HTML-элементов карточек с продуктами
-    total: number; //сумма заказа
+//данные корзины для отрисовки  
+interface IBasketView {  
+    items: HTMLElement[]; //массив HTML-элементов карточек с продуктами  
+    total: number; //сумма заказа  
 }
 
 //данные каждого продукта
- interface IProduct {
-  category?: string; //категория продукта
-  description?: string; //описание товара
-  id: string; //id товара
-  image: string; //изображение товара
-  price: number | null; //цена товара
-  title: string; //название товара
+ interface IProduct {  
+  category?: string; //категория продукта  
+  description?: string; //описание товара  
+  id: string; //id товара  
+  image: string; //изображение товара  
+  price: number | null; //цена товара  
+  title: string; //название товара  
 }  
 
-//данные приложения
-interface IAppState {
-  catalog: IProduct[]; //каталог
-  basket: string[]; //корзина
-  preview: string | null; //превью
-  order: IOrder | null; //заказ
+//данные приложения  
+interface IAppState {  
+  catalog: IProduct[]; //каталог  
+  basket: string[]; //корзина  
+  preview: string | null; //превью  
+  order: IOrder | null; //заказ  
 }
 
-//данные формы
-interface IOrderForm {
-  payment: string; //метод оплаты
-  address: string; //адрес доставки
-  email: string; //контактный email
-  phone: string; //контактный телефон
+//данные формы  
+interface IOrderForm {  
+  payment: string; //метод оплаты  
+  address: string; //адрес доставки  
+  email: string; //контактный email  
+  phone: string; //контактный телефон  
 }
 
-//данные заказа
-interface IOrder extends IOrderForm {
-  items: string[]; //товары в оформленном заказе
-  total: number; //финальная сумма заказа
+//данные заказа  
+interface IOrder extends IOrderForm {  
+  items: string[]; //товары в оформленном заказе  
+  total: number; //финальная сумма заказа  
 }
 
-//ошибки для валидации форм
-type FormErrors = Partial<Record<keyof IOrder, string>>; 
+//ошибки для валидации форм  
+type FormErrors = Partial<Record<keyof IOrder, string>>;   
 
-//данные оформленного заказа
-interface IOrderResult {
-  id: string; //id заказа, отправленного на сервер
+//данные оформленного заказа  
+interface IOrderResult {  
+  id: string; //id заказа, отправленного на сервер  
 }
 
-//все события в приложении
+//все события в приложении  
 
-'items:show'; //вывод каталога с продуктами на страницу
-'card:select'; //выбор карточки с продуктом
-'preview:open'; //открытие модального окна с выбранной карточкой
-'basket:open'; //открытие корзины
-'card:add'; //добавление продукта в корзину
-'card:delete'; //удаление продукта из корзины
-'basket:changed'; //в корзину внесены изменения
-'order:open'; //открыта форма оформления заказа
-'payment:chosen'; //выбран метод оплаты заказа
-'order:submit'; //подтверждены поля "метод оплаты" и "адрес"
-'contacts:submit'; //подтверждена и отправлена на сервер форма оформления заказа
-'orderFormErrors:change'; //изменилось состояние валидации формы 'order'
-'contactsFormErrors:change'; //изменилось состояние валидации формы contacts
-/^order\..*:change/ ; //изменилось одно из полей формы 'order'
-/^contacts\..*:change/ ; //изменилось одно из полей формы 'contacts'
-'modal:open'; //блокируем прокрутку страницы, если открыто модальное окно
-'modal:close'; //разблокируем прокрутку страницы, если модальное окно не открыто
+- 'items:show'; //вывод каталога с продуктами на страницу
+- 'card:select'; //выбор карточки с продуктом
+- 'preview:open'; //открытие модального окна с выбранной карточкой
+- 'basket:open'; //открытие корзины
+- 'card:add'; //добавление продукта в корзину
+- 'card:delete'; //удаление продукта из корзины
+- 'basket:changed'; //в корзину внесены изменения
+- 'order:open'; //открыта форма оформления заказа
+- 'payment:chosen'; //выбран метод оплаты заказа
+- 'order:submit'; //подтверждены поля "метод оплаты" и "адрес"
+- 'contacts:submit'; //подтверждена и отправлена на сервер форма оформления заказа
+- 'orderFormErrors:change'; //изменилось состояние валидации формы 'order'
+- 'contactsFormErrors:change'; //изменилось состояние валидации формы contacts
+- /^order\..*:change/ ; //изменилось одно из полей формы 'order'
+- /^contacts\..*:change/ ; //изменилось одно из полей формы 'contacts'
+- 'modal:open'; //блокируем прокрутку страницы, если открыто модальное окно
+- 'modal:close'; //разблокируем прокрутку страницы, если модальное окно не открыто
 
 
 
