@@ -25,15 +25,15 @@ export class Api {
             .then(data => Promise.reject(data.error ?? response.statusText));
     }
 
-    get(uri: string) {
-        return fetch(this.baseUrl + uri, {
+    get(url: string) {
+        return fetch(this.baseUrl + url, {
             ...this.options,
             method: 'GET'
         }).then(this.handleResponse);
     }
 
-    post(uri: string, data: object, method: ApiPostMethods = 'POST') {
-        return fetch(this.baseUrl + uri, {
+    post(url: string, data: object, method: ApiPostMethods = 'POST') {
+        return fetch(this.baseUrl + url, {
             ...this.options,
             method,
             body: JSON.stringify(data)
