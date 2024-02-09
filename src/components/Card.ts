@@ -16,7 +16,7 @@ export interface ICard<T> {
     price: number | string;
     title: string;
     index?: number;
-    button: string[];
+    button: boolean;
 }
 
 export class Card<T> extends Component<ICard<T>> {
@@ -114,8 +114,8 @@ export class PreviewCard extends Card<HTMLElement> {
         super('card', container, actions);
     }
 
-    set button(value: string[])  {
-        if (value.includes(this.id)) {
+    set button(value: boolean)  {
+        if (value) {
             this.setText(this._button, 'Удалить из корзины');
         } else {
             this.setText(this._button, 'В корзину'); 

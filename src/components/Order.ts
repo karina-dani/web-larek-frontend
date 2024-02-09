@@ -14,7 +14,6 @@ export class Order extends Form<IOrderForm> {
       this._tabs = ensureAllElements<HTMLButtonElement>('.button_alt', container);
       this._card = ensureElement<HTMLButtonElement>('button[name=card]', container);
       this._cash = ensureElement<HTMLButtonElement>('button[name=cash]', container);
-      //this._address = ensureElement<HTMLInputElement>('input[name=address]', container);
 
       this._tabs.forEach(tab => {
           tab.addEventListener('click', () => { 

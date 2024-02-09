@@ -95,7 +95,7 @@ events.on('preview:open', (item: ProductItem) => {
             image: item.image,
             price: item.price,
             title: item.title,
-            button: appData.basket,
+            button: appData.isProductSelected(),
               })
           })
       }

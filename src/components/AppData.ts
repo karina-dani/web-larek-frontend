@@ -39,6 +39,14 @@ export class AppState extends Model<IAppState> {
         }
     }
 
+    isProductSelected() {
+        if (this.basket.includes(this.preview)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     getAddedProducts(): ProductItem[] {
         return this.catalog
         .filter(item => this.basket.includes(item.id));
