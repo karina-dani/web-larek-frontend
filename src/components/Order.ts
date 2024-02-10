@@ -1,5 +1,5 @@
 import {Form} from "./common/Form";
-import {IOrderForm} from "../types";
+import {IOrderForm, IContactsForm} from "../types";
 import {EventEmitter, IEvents} from "./base/events";
 import {ensureElement, ensureAllElements} from "../utils/utils";
 
@@ -20,9 +20,11 @@ export class Order extends Form<IOrderForm> {
             if(tab === this._card) {
             this._card.classList.add('button_alt-active');
             this._cash.classList.remove('button_alt-active');
+            this.onInputChange('payment', 'card');
             } else {
             this._cash.classList.add('button_alt-active');
             this._card.classList.remove('button_alt-active');
+            this.onInputChange('payment', 'cash');
             }
             events.emit('payment:chosen');
           })
@@ -30,31 +32,13 @@ export class Order extends Form<IOrderForm> {
       
   }
 
-  set payment(value:string) {
-   value = this.isSelected();
-  }
-
-  get payment():string {
-    return this.isSelected();
-  }
-
   set address(value: string) {
     (this.container.elements.namedItem('address') as HTMLInputElement).value = value;
 }
 
-    isSelected() {
-
-      if (this._card.classList.contains('button_alt-active')) {
-        return 'card';
-
-      } else if (this._cash.classList.contains('button_alt-active')){
-        return 'cash';
-      }
-      return '';
-    }
 }
 
-export class Contacts extends Form<IOrderForm> {
+export class Contacts extends Form<IContactsForm> {
     constructor(container: HTMLFormElement, events: IEvents) {
         super(container, events);
     }

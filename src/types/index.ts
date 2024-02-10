@@ -18,11 +18,14 @@ export interface IAppState {
 export interface IOrderForm {
   payment: string;
   address: string;
+}
+
+export interface IContactsForm {
   email: string;
   phone: string;
 }
 
-export interface IOrder extends IOrderForm {
+export interface IOrder extends IOrderForm, IContactsForm {
   items: string[];
   total: number;
 }

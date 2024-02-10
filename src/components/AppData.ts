@@ -12,7 +12,7 @@ export class ProductItem extends Model<IProduct>{
     id: string;
     image: string;
     title: string;
-    price: number;
+    price: number | null;
     category: string;
 }
 
@@ -61,9 +61,7 @@ export class AppState extends Model<IAppState> {
     }
 
     clearBasket() {
-        this.order.items.forEach(id => {
-            this.toggleOrderedProduct(id, false);
-        });
+        this.basket = [];
     }
 
     setCatalog(items: IProduct[]) {

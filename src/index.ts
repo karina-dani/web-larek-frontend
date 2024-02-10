@@ -8,10 +8,10 @@ import {Page} from "./components/Page";
 import {Card, CatalogCard, PreviewCard, BasketCard} from "./components/Card";
 import {cloneTemplate, createElement, ensureElement} from "./utils/utils";
 import {Modal} from "./components/common/Modal";
-import {Basket} from "./components/common/Basket";
-import {IOrderForm} from "./types";
+import {Basket} from "./components/Basket";
+import {IOrderForm, IContactsForm} from "./types";
 import {Order, Contacts} from "./components/Order";
-import {Success} from "./components/common/Success";
+import {Success} from "./components/Success";
 
 const events = new EventEmitter();
 
@@ -99,18 +99,8 @@ events.on('preview:open', (item: ProductItem) => {
               })
           })
       }
-    //теперь обращаемся к серверу
-      if (item) {
-        api.getProductItem(item.id)
-            .then(() => {
-                showItem(item);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
-    } else {
-        modal.close();
-    }
+
+   showItem(item);
     });
 
 // Открыть корзину - рождается из page
@@ -166,10 +156,10 @@ events.on('order:open', () => {
 });
 
 //выбрали метод оплаты
-events.on('payment:chosen', () => {
-    appData.order.payment = order.payment;
-    appData.validateOrder();
-})
+//events.on('payment:chosen', () => {
+   // appData.order.payment = order.payment;
+ //   appData.validateOrder();
+//})
 
 events.on('order:submit', () => {
     modal.render({
@@ -185,7 +175,7 @@ events.on('order:submit', () => {
 // Отправлена форма заказа
 events.on('contacts:submit', () => {
     api.orderProducts(appData.order)
-        .then((result) => {
+        .then((total) => {
             const success = new Success(cloneTemplate(successTemplate), {
                 onClick: () => {
                     modal.close();
@@ -200,9 +190,7 @@ events.on('contacts:submit', () => {
                 })
             });
         })
-        .catch(err => {
-            console.error(err);
-        });
+        .catch(console.error);
         
 });
 
@@ -214,7 +202,7 @@ events.on('orderFormErrors:change', (errors: Partial<IOrderForm>) => {
 });
 
 // Изменилось состояние валидации формы contacts
-events.on('contactsFormErrors:change', (errors: Partial<IOrderForm>) => {
+events.on('contactsFormErrors:change', (errors: Partial<IContactsForm>) => {
     const { email, phone } = errors;
     contacts.valid = !email && !phone;
     contacts.errors = Object.values({email, phone}).filter(i => !!i).join('; ');

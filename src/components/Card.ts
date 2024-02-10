@@ -34,7 +34,7 @@ export class Card<T> extends Component<ICard<T>> {
         this._image = container.querySelector(`.${blockName}__image`);
         this._button = container.querySelector(`.${blockName}__button`);
         this._description = container.querySelector(`.${blockName}__text`);
-        this._price = container.querySelector(`.${blockName}__price`);
+        this._price = ensureElement<HTMLElement>(`.${blockName}__price`, container);
         this._category = container.querySelector(`.${blockName}__category`);
         
       //вот тут навешивает событие, если находит кнопку. Если не находит, то на весь контейнер

@@ -16,7 +16,7 @@ export class StoreAPI extends Api implements IStoreAPI {
     }
 
     getProductItem(id: string): Promise<IProduct> {
-        return this.get(`/Product/${id}`).then(
+        return this.get(`/product/${id}`).then(
             (item: IProduct) => ({
                 ...item,
                 image: this.cdn + item.image,
@@ -25,7 +25,7 @@ export class StoreAPI extends Api implements IStoreAPI {
     }
 
     getProductList(): Promise<IProduct[]> {
-        return this.get('/Product').then((data: ApiListResponse<IProduct>) =>
+        return this.get('/product').then((data: ApiListResponse<IProduct>) =>
             data.items.map((item) => ({
                 ...item,
                 image: this.cdn + item.image
