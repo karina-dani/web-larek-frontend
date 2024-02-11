@@ -114,8 +114,8 @@ export class PreviewCard extends Card<HTMLElement> {
         super('card', container, actions);
     }
 
-    set button(value: boolean)  {
-        if (value) {
+    set button(isSelected: boolean)  {
+        if (isSelected) {
             this.setText(this._button, 'Удалить из корзины');
         } else {
             this.setText(this._button, 'В корзину'); 

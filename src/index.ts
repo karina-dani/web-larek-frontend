@@ -81,10 +81,11 @@ events.on('preview:open', (item: ProductItem) => {
             //закинули сразу id карточки в баскет или удалили
             if (appData.basket.includes(item.id)) {
                 events.emit('card:delete', item);
+                card.button = false;
             } else {
                 events.emit('card:add', item); 
+                card.button = true;
             }
-            events.emit('preview:open', item);
         }
     });
       modal.render({
@@ -154,12 +155,6 @@ events.on('order:open', () => {
         })
     });
 });
-
-//выбрали метод оплаты
-//events.on('payment:chosen', () => {
-   // appData.order.payment = order.payment;
- //   appData.validateOrder();
-//})
 
 events.on('order:submit', () => {
     modal.render({
